@@ -41,15 +41,15 @@ jobs:
       with:
         version: 'latest'
         
+    - name: Obter credenciais do cluster EKS
+      run: |
+        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+ 
     - name: Debug - Testar conexão EKS
       run: |
         echo "Testando conexão com o cluster..."
         kubectl cluster-info
-        kubectl get nodes
-          
-    - name: Obter credenciais do cluster EKS
-      run: |
-        aws eks update-kubeconfig --region ${{ secrets.AWS_REGION }} --name ${{ secrets.EKS_CLUSTER_NAME }}
+        kubectl get nodes          
 
     - name: Criar ou atualizar Kubernetes Secret
       run: |
